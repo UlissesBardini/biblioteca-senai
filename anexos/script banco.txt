@@ -1,0 +1,26 @@
+create table if not exists estudantes (
+	id serial not null primary key unique,
+	nome_completo varchar (100) not null,
+	data_nascimento date not null,
+	email varchar (100) not null,
+	telefone varchar (14) not null	
+	);
+
+create table if not exists livros (
+	id serial not null primary key unique,
+	titulo varchar (100) not null unique,
+	autor varchar (100) not null,
+	editora varchar (100) not null,
+	ano int not null
+	);
+	
+create table if not exists emprestimos (
+	id serial not null primary key unique,
+	id_livro integer not null,
+	id_estudante integer not null,
+	data_retirada date not null,
+	data_entrega date not null,
+	is_devolvido bool not null default false,
+	CONSTRAINT fk_livros FOREIGN KEY(id_livro) REFERENCES livros(id),
+	CONSTRAINT fk_estudantes FOREIGN KEY(id_estudante) REFERENCES estudantes(id)	
+	);
